@@ -10,6 +10,7 @@
 
 @interface ViewController : UIViewController
 
+// An array of titles?
+@property (strong, nonatomic) NSArray *titles;
 
 @end
-

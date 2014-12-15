@@ -34,6 +34,12 @@
     
     // Add the tableview to the screen
     [self.view addSubview:self.tableView];
+	
+		// Register class for cell?
+		[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+	
+		// Make titles...
+		self.titles = [NSArray arrayWithObjects:@"Bananas", @"Avocados", @"Argentine Blueberries", nil];
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -47,7 +53,7 @@
 // how many rows it's going to need.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 50;
+		return [self.titles count];
 }
 
 // This method just returns a cell for the table view to use.
@@ -59,10 +65,11 @@
     NSLog(@"cellForRow was called");
     
     // Ask the table view for a reusable cell
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+		static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    // Setup the cell
-    cell.textLabel.text = [NSString stringWithFormat:@"Lesson %d", (int)indexPath.row + 1];
+    // Setup the cell, use post titles
+    cell.textLabel.text = [self.titles objectAtIndex:indexPath.row];
     
     return cell;
 }
